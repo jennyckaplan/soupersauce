@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>9</integer>
+	<key>logs</key>
+	<dict>
+		<key>E3619237-EBF3-4269-93A2-B3F0B442696E</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>E3619237-EBF3-4269-93A2-B3F0B442696E.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>E</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>SouperSauce project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>SouperSauce</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project SouperSauce with scheme SouperSauce and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>574632038.52426004</real>
+			<key>timeStoppedRecording</key>
+			<real>574632039.26663494</real>
+			<key>title</key>
+			<string>Building project SouperSauce with scheme SouperSauce and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>E3619237-EBF3-4269-93A2-B3F0B442696E</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
