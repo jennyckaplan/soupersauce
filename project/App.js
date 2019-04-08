@@ -1,44 +1,80 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  Text,
+  View,
+  TouchableHighlight,
+  NativeAppEventEmitter,
+  Platform,
+  PermissionsAndroid,
+  Alert
+} from 'react-native';
+import BleManager from 'react-native-ble-manager';
 
-import React, {Component} from 'react';
-import RecipeBox from './RecipeBox.js';
-import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
+export default class App extends Component {
 
-type Props = {};
-export default class App extends Component<Props> {
+    constructor(){
+        super()
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Souper Sauce</Text>
-      </View>
-    );
-  }
+        this.state = {
+            ble:null,
+            scanning:false,
+        }
+    }
+
+    componentDidMount() {
+        BleManager.start({showAlert: false});
+        this.handleDiscoverPeripheral = this.handleDiscoverPeripheral.bind(this);
+
+        NativeAppEventEmitter
+            .addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral);
+
+    }
+
+    handleScan() {
+        BleManager.scan([], 30, true)
+            .then((results) => {console.log('Scanning...'); });
+    }
+
+    toggleScanning(bool){
+        if (bool) {
+            this.setState({scanning:true})
+            this.scanning = setInterval( ()=> this.handleScan(), 3000);
+        } else{
+            this.setState({scanning:false, ble: null})
+            clearInterval(this.scanning);
+        }
+    }
+
+    handleDiscoverPeripheral(data){
+        Alert.alert("hi")
+        console.log('Got ble data', data);
+        this.setState({ ble: data })
+    }
+
+    render() {
+
+        const container = {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F5FCFF',
+        }
+
+        const bleList = this.state.ble
+            ? <Text> Device found: {this.state.ble.name} </Text>
+            : <Text>no devices nearby</Text>
+
+        return (
+            <View style={container}>
+                <TouchableHighlight style={{padding:20, backgroundColor:'#ccc'}} onPress={() => this.toggleScanning(!this.state.scanning) }>
+                    <Text>Scan Bluetooth ({this.state.scanning ? 'on' : 'off'})</Text>
+                </TouchableHighlight>
+
+                {bleList}
+            </View>
+        );
+    }
 }
 
-const width = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    top: 0,
-    left: 0,
-    height: 150,
-    width: width,
-    flexDirection: 'row',
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F8F8F8',
-  },
-  title: {
-    fontSize: 25,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
+AppRegistry.registerComponent('App', () => App);
