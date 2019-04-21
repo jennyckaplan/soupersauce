@@ -1,80 +1,228 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  StyleSheet,
   Text,
   View,
   TouchableHighlight,
   NativeAppEventEmitter,
+  NativeEventEmitter,
+  NativeModules,
   Platform,
   PermissionsAndroid,
-  Alert
+  ListView,
+  ScrollView,
+  AppState,
+  Dimensions,
+  Button,
+  TextInput,
 } from 'react-native';
 import BleManager from 'react-native-ble-manager';
+import { stringToBytes } from 'convert-string';
+
+const window = Dimensions.get('window');
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+const BleManagerModule = NativeModules.BleManager;
+const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
+
 
 export default class App extends Component {
+  constructor(){
+    super()
 
-    constructor(){
-        super()
-
-        this.state = {
-            ble:null,
-            scanning:false,
-        }
+    this.state = {
+      scanning:false,
+      peripherals: new Map(),
+      appState: '',
+      item: '',
+      text: '',
     }
+    
+    this.handleDiscoverPeripheral = this.handleDiscoverPeripheral.bind(this);
+    this.handleStopScan = this.handleStopScan.bind(this);
+    this.handleUpdateValueForCharacteristic = this.handleUpdateValueForCharacteristic.bind(this);
+    this.handleDisconnectedPeripheral = this.handleDisconnectedPeripheral.bind(this);
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+  }
 
-    componentDidMount() {
-        BleManager.start({showAlert: false});
-        this.handleDiscoverPeripheral = this.handleDiscoverPeripheral.bind(this);
+  componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
 
-        NativeAppEventEmitter
-            .addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral);
+    BleManager.start({showAlert: false});
 
+    this.handlerDiscover = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral );
+    this.handlerStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan );
+    this.handlerDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral );
+    this.handlerUpdate = bleManagerEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', this.handleUpdateValueForCharacteristic );
+
+
+  }
+
+  handleAppStateChange(nextAppState) {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!')
+      BleManager.getConnectedPeripherals([]).then((peripheralsArray) => {
+        console.log('Connected peripherals: ' + peripheralsArray.length);
+      });
     }
+    this.setState({appState: nextAppState});
+  }
 
-    handleScan() {
-        BleManager.scan([], 30, true)
-            .then((results) => {console.log('Scanning...'); });
+  componentWillUnmount() {
+    this.handlerDiscover.remove();
+    this.handlerStop.remove();
+    this.handlerDisconnect.remove();
+    this.handlerUpdate.remove();
+  }
+
+  handleDisconnectedPeripheral(data) {
+    let peripherals = this.state.peripherals;
+    let peripheral = peripherals.get(data.peripheral);
+    if (peripheral) {
+      peripheral.connected = false;
+      peripherals.set(peripheral.id, peripheral);
+      this.setState({peripherals});
     }
+    console.log('Disconnected from ' + data.peripheral);
+  }
 
-    toggleScanning(bool){
-        if (bool) {
-            this.setState({scanning:true})
-            this.scanning = setInterval( ()=> this.handleScan(), 3000);
-        } else{
-            this.setState({scanning:false, ble: null})
-            clearInterval(this.scanning);
-        }
+  handleUpdateValueForCharacteristic(data) {
+    console.log('Received data from ' + data.peripheral + ' characteristic ' + data.characteristic, data.value);
+  }
+
+  handleStopScan() {
+    console.log('Scan is stopped');
+    this.setState({ scanning: false });
+  }
+
+  startScan() {
+    if (!this.state.scanning) {
+      this.setState({peripherals: new Map()});
+      BleManager.scan([], 3, true).then((results) => {
+        console.log('Scanning...');
+        this.setState({scanning:true});
+      });
     }
+  }
 
-    handleDiscoverPeripheral(data){
-        Alert.alert("hi")
-        console.log('Got ble data', data);
-        this.setState({ ble: data })
+  retrieveConnected(){
+    BleManager.getConnectedPeripherals([]).then((results) => {
+      if (results.length == 0) {
+        console.log('No connected peripherals')
+      }
+      console.log(results);
+      var peripherals = this.state.peripherals;
+      for (var i = 0; i < results.length; i++) {
+        var peripheral = results[i];
+        peripheral.connected = true;
+        peripherals.set(peripheral.id, peripheral);
+        this.setState({ peripherals });
+      }
+    });
+  }
+
+  handleDiscoverPeripheral(peripheral){
+    var peripherals = this.state.peripherals;
+    if (peripheral.name == "DSD TECH"){
+      console.log('Got ble peripheral', peripheral);
+      peripherals.set(peripheral.id, peripheral);
+      this.setState({ peripherals })
+      this.setState({item :peripheral.id})
+      BleManager.connect(peripheral.id)
     }
+  }
 
-    render() {
+  
+toggleSwitch(){
+    
+    var id = '070FC77C-181A-4F7D-8A81-04DB71C6541B'
+    var service = 'FFE0';
+    var bakeCharacteristic = 'ffe1';
+    var crustCharacteristic = 'ffe1';
+    setTimeout(() => {
 
-        const container = {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#F5FCFF',
-        }
+            /* Test read current RSSI value
+            BleManager.retrieveServices(peripheral.id).then((peripheralData) => {
+              console.log('Retrieved peripheral services', peripheralData);
+              BleManager.readRSSI(peripheral.id).then((rssi) => {
+                console.log('Retrieved actual RSSI value', rssi);
+              });
+            });*/
 
-        const bleList = this.state.ble
-            ? <Text> Device found: {this.state.ble.name} </Text>
-            : <Text>no devices nearby</Text>
+            // Test using bleno's pizza example
+            // https://github.com/sandeepmistry/bleno/tree/master/examples/pizza
+            BleManager.retrieveServices(id).then((peripheralInfo) => {
+              
+              console.log('here: ', peripheralInfo);
 
-        return (
-            <View style={container}>
-                <TouchableHighlight style={{padding:20, backgroundColor:'#ccc'}} onPress={() => this.toggleScanning(!this.state.scanning) }>
-                    <Text>Scan Bluetooth ({this.state.scanning ? 'on' : 'off'})</Text>
-                </TouchableHighlight>
+              setTimeout(() => {
+                BleManager.startNotification(id, service, bakeCharacteristic).then(() => {
+                  console.log('Started notification on ' + id);
+                  setTimeout(() => {
+                    BleManager.writeWithoutResponse(id, service, crustCharacteristic, stringToBytes(this.state.text)).then(() => {
+                      console.log('Writed NORMAL crust');
+                      // BleManager.writeWithoutResponse(peripheral.id, service, bakeCharacteristic, [1,95]).then(() => {
+                      //   console.log('Writed 351 temperature, the pizza should be BAKED');
+                        
+                      //   var PizzaBakeResult = {
+                      //     HALF_BAKED: 0,
+                      //     BAKED:      1,
+                      //     CRISPY:     2,
+                      //     BURNT:      3,
+                      //     ON_FIRE:    4
+                      //   };
+                      // });
+                    });
 
-                {bleList}
-            </View>
-        );
-    }
+                  }, 500);
+                }).catch((error) => {
+                  console.log('Notification error', error);
+                });
+              }, 200);
+            });
+
+          }, 900);
+  }
+
+  render() {
+    const list = Array.from(this.state.peripherals.values());
+    const dataSource = ds.cloneWithRows(list);
+
+
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight style={{marginTop: 40,margin: 20, padding:20, backgroundColor:'#ccc'}} onPress={() => this.startScan() }>
+          <Text>Connect</Text>
+        </TouchableHighlight>
+        <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({text})}
+        value={this.state.text}
+      />
+        
+        <Button
+          onPress={this.toggleSwitch.bind(this)}
+          title='Switch(On/Off)'
+        />
+      </View>
+    );
+  }
 }
 
-AppRegistry.registerComponent('App', () => App);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    width: window.width,
+    height: window.height
+  },
+  scroll: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+    margin: 10,
+  },
+  row: {
+    margin: 10
+  },
+});

@@ -7,8 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "convert-string": "^0.1.0",
     "react": "16.8.3",
-    "react-native": "0.59.1",
+    "react-native": "^0.59.3",
     "react-native-ble-manager": "^6.6.2"
   },
   "devDependencies": {
