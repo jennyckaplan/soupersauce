@@ -40,7 +40,7 @@ class Manual extends React.Component {
                   style={{width: 200, height: 40}}
                   minimumValue={0}
                   maximumValue={4}
-                  minimumTrackTintColor={'blue'}
+                  minimumTrackTintColor={'#9B51E0'}
                   maximumTrackTintColor={'red'}
                   step={1}
                   onValueChange={value => this.setState({whisk: value})}
@@ -54,7 +54,7 @@ class Manual extends React.Component {
                     style={{width: 200, height: 40}}
                     minimumValue={0}
                     maximumValue={7}
-                    minimumTrackTintColor={'blue'}
+                    minimumTrackTintColor={'#9B51E0'}
                     maximumTrackTintColor={'red'}
                     step={1}
                     onValueChange={value => this.setState({temperature: value})}
@@ -67,8 +67,8 @@ class Manual extends React.Component {
                 <Slider
                     style={{width: 200, height: 40}}
                     minimumValue={0.5}
-                    maximumValue={5}
-                    minimumTrackTintColor={'blue'}
+                    maximumValue={20}
+                    minimumTrackTintColor={'#9B51E0'}
                     maximumTrackTintColor={'red'}
                     step={0.5}
                     onValueChange={value => this.setState({timer: value})}

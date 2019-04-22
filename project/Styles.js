@@ -156,5 +156,61 @@ export default StyleSheet.create({
     ellipsis: {
       color: '#9B51E0',
       fontSize: 100,
-    }
+    },
+    addButton: {
+      width: 35,
+      height: 35,
+      marginLeft: 30,
+    },
+    recipesContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    addContainer: {
+      borderBottomWidth: 0.5,
+      borderColor: 'black',
+      width: width,
+      height: 75,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: '#9B51E0',
+    },
+    addRecipeText: {
+      fontSize: 20,
+      marginRight: 20,
+      marginLeft: 60,
+      fontFamily: 'Thonburi',
+      fontWeight: 'bold',
+      color: 'white',
+    },
+    recipeIcon: {
+      width: 54,
+      height: 54,
+      marginLeft: 20,
+    },
+    recipeContainer: {
+      borderBottomWidth: 0.5,
+      borderColor: 'black',
+      width: width,
+      height: 75,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    recipeText: {
+      fontSize: 20,
+      marginRight: 20,
+      marginLeft: 50,
+      fontFamily: 'Thonburi',
+      fontWeight: 'bold',
+      color: 'black',
+    },
+    arrow: {
+      width: 8,
+      height: 16,
+      marginRight: 20,
+    },
   });

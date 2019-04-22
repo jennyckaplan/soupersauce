@@ -2,10 +2,19 @@ import React from 'react';
 import styles from './Styles';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
+import ButtonImage from './img/Button.png';
+import RecipeIcon from './img/Recipe.png';
+import Arrow from './img/Arrow.png';
 
 class Recipes extends React.Component {
     componentDidMount() {
-      const db = SQLite.openDatabase({ name: 'recipes' });
+      const db = SQLite.openDatabase({ name: 'recipes.db' });
+      db.transaction(function(txn) {
+        txn.executeSql("CREATE TABLE IF NOT EXISTS recipes( " +
+          "recipe_id INTEGER PRIMARY KEY NOT NULL, " +
+          "title TEXT, ingredients TEXT, time INTEGER, whisk INTEGER, temp INTEGER" +
+          ");", []);
+      });
       db.transaction(function(txn) {
         txn.executeSql(
           "SELECT * FROM recipes;"
@@ -14,15 +23,6 @@ class Recipes extends React.Component {
           function(tx, res) {
             console.log(res);
             console.log('connected to database');
-            if (res.rows.length == 0) {
-              txn.executeSql(
-                "CREATE TABLE IF NOT EXISTS recipes( " +
-                "recipe_id INTEGER PRIMARY KEY NOT NULL, " +
-                "title TEXT, ingredients TEXT, time INTEGER, whisk INTEGER, temp INTEGER" +
-                ");",
-                []
-              );
-            }
           }
         );
       });
@@ -44,8 +44,36 @@ class Recipes extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.main}>
-                
+            <View style={styles.recipesContainer}>
+              <TouchableOpacity style={styles.addContainer}>
+                <Image style={styles.addButton} source={ButtonImage} alt="add" />
+                <Text style={styles.addRecipeText}>Create New Recipe</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.recipeContainer}>
+                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                <Text style={styles.recipeText}>Bernaise Sauce</Text>
+                <Image style={styles.arrow} source={Arrow} alt="go-to" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.recipeContainer}>
+                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                <Text style={styles.recipeText}>Hollandaise</Text>
+                <Image style={styles.arrow} source={Arrow} alt="go-to" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.recipeContainer}>
+                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                <Text style={styles.recipeText}>Gravy</Text>
+                <Image style={styles.arrow} source={Arrow} alt="go-to" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.recipeContainer}>
+                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                <Text style={styles.recipeText}>Yummy Sauce</Text>
+                <Image style={styles.arrow} source={Arrow} alt="go-to" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.recipeContainer}>
+                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                <Text style={styles.recipeText}>Scrambled Eggs</Text>
+                <Image style={styles.arrow} source={Arrow} alt="go-to" />
+              </TouchableOpacity>
             </View>
         );
     }
