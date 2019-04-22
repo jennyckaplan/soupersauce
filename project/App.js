@@ -35,13 +35,13 @@ class App extends Component<Props> {
     const {navigate} = this.props.navigation;
     return (
         <TouchableOpacity style={styles.connect} onPress={()=> {navigate('Main')}}>
-          <Text style={styles.connectText}>Start cooking!</Text>
-          <Image style={styles.chefIcon} source={Chef} />
+            <Text style={styles.connectText}>Start cooking!</Text>
+            <Image style={styles.chefIcon} source={Chef} />
         </TouchableOpacity>
+
     );
   }
 }
-
 
 const AppNavigator = createStackNavigator({
   Home: {
