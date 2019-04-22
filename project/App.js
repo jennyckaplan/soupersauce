@@ -106,22 +106,6 @@ export default class App extends Component {
     }
   }
 
-  retrieveConnected(){
-    BleManager.getConnectedPeripherals([]).then((results) => {
-      if (results.length == 0) {
-        console.log('No connected peripherals')
-      }
-      console.log(results);
-      var peripherals = this.state.peripherals;
-      for (var i = 0; i < results.length; i++) {
-        var peripheral = results[i];
-        peripheral.connected = true;
-        peripherals.set(peripheral.id, peripheral);
-        this.setState({ peripherals });
-      }
-    });
-  }
-
   handleDiscoverPeripheral(peripheral){
     var peripherals = this.state.peripherals;
     if (peripheral.name == "DSD TECH"){
@@ -130,6 +114,7 @@ export default class App extends Component {
       this.setState({ peripherals })
       this.setState({item :peripheral.id})
       BleManager.connect(peripheral.id)
+      this.setState({ scanning: false });
     }
   }
 
@@ -142,16 +127,6 @@ toggleSwitch(){
     var crustCharacteristic = 'ffe1';
     setTimeout(() => {
 
-            /* Test read current RSSI value
-            BleManager.retrieveServices(peripheral.id).then((peripheralData) => {
-              console.log('Retrieved peripheral services', peripheralData);
-              BleManager.readRSSI(peripheral.id).then((rssi) => {
-                console.log('Retrieved actual RSSI value', rssi);
-              });
-            });*/
-
-            // Test using bleno's pizza example
-            // https://github.com/sandeepmistry/bleno/tree/master/examples/pizza
             BleManager.retrieveServices(id).then((peripheralInfo) => {
               
               console.log('here: ', peripheralInfo);
@@ -161,18 +136,7 @@ toggleSwitch(){
                   console.log('Started notification on ' + id);
                   setTimeout(() => {
                     BleManager.writeWithoutResponse(id, service, crustCharacteristic, stringToBytes(this.state.text)).then(() => {
-                      console.log('Writed NORMAL crust');
-                      // BleManager.writeWithoutResponse(peripheral.id, service, bakeCharacteristic, [1,95]).then(() => {
-                      //   console.log('Writed 351 temperature, the pizza should be BAKED');
-                        
-                      //   var PizzaBakeResult = {
-                      //     HALF_BAKED: 0,
-                      //     BAKED:      1,
-                      //     CRISPY:     2,
-                      //     BURNT:      3,
-                      //     ON_FIRE:    4
-                      //   };
-                      // });
+                      console.log('Sent message');
                     });
 
                   }, 500);
