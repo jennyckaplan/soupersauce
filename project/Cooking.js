@@ -2,10 +2,14 @@ import React from 'react';
 import styles from './Styles';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import CookingIcon from './img/spin.png';
+import AnimatedEllipsis from 'react-native-animated-ellipsis';
 
 class Cooking extends React.Component {
+  constructor(props) {
+    super(props);
+  }
     static navigationOptions = {
-        title: 'Cooking',
+        title: 'Manual',
         headerStyle: {
             backgroundColor: '#F8F8F8',
             height: 80,
@@ -19,7 +23,13 @@ class Cooking extends React.Component {
     };
     render() {
         return (
+          <View style={styles.cookingContainer}>
+            <Text style={styles.cookingText}>
+              Cooking
+            </Text>
+            <AnimatedEllipsis style={styles.ellipsis} />
             <Image style={styles.cookingSpinningIcon} source={CookingIcon}></Image>
+          </View>
         );
     }
 }

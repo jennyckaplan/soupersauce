@@ -6,7 +6,7 @@ height = height - 80;
 export default StyleSheet.create({
     connect: {
       width: 300,
-      height: 300,
+      height: 280,
       marginLeft: 50,
       marginTop: 150,
       backgroundColor: '#6F95CF',
@@ -136,6 +136,20 @@ export default StyleSheet.create({
     },
     cookingSpinningIcon: {
       top: 150,
-      left: 150,
     },
+    cookingText: {
+      fontSize: 50,
+      fontFamily: 'Thonburi',
+      fontWeight: 'bold',
+    },
+    cookingContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: 60,
+    },
+    ellipsis: {
+      color: 'blue',
+      fontSize: 100,
+    }
   });
