@@ -4,10 +4,14 @@ let {height, width} = Dimensions.get('window');
 height = height - 80;
 
 export default StyleSheet.create({
+    appContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
     connect: {
       width: 300,
       height: 280,
-      marginLeft: 50,
       marginTop: 150,
       backgroundColor: '#6F95CF',
       borderRadius: 15,
@@ -127,6 +131,7 @@ export default StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 20,
+      marginBottom: 10,
     },
     startText: {
       color: 'white',
@@ -149,7 +154,7 @@ export default StyleSheet.create({
       paddingTop: 60,
     },
     ellipsis: {
-      color: 'blue',
+      color: '#9B51E0',
       fontSize: 100,
     }
   });

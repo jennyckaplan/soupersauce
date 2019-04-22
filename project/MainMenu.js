@@ -22,7 +22,7 @@ class MainMenu extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.main}>
-                <TouchableOpacity style={styles.recipes} onPress={()=> {console.log('recipes page')}}>
+                <TouchableOpacity style={styles.recipes} onPress={()=> {navigate('Recipes')}}>
                     <Text style={styles.text}>Recipes</Text>
                     <Image style={styles.icon} source={RecipeIcon} />
                 </TouchableOpacity>
