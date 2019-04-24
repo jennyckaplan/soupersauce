@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Styles';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Image, Alert} from 'react-native';
 import CookingIcon from './img/spin.png';
 import AnimatedEllipsis from 'react-native-animated-ellipsis';
 
@@ -8,6 +8,7 @@ class Cooking extends React.Component {
   constructor(props) {
     super(props);
   }
+    
     static navigationOptions = {
         title: 'Manual',
         headerStyle: {
@@ -22,6 +23,12 @@ class Cooking extends React.Component {
           },
     };
     render() {
+    const { navigation } = this.props;
+    var timer = navigation.getParam('timer');
+    const {navigate} = this.props.navigation;
+      setTimeout(() => {
+          navigate('Manual'); 
+      }, timer*60000);
         return (
           <View style={styles.cookingContainer}>
             <Text style={styles.cookingText}>

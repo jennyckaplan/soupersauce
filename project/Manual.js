@@ -61,7 +61,10 @@ class Manual extends React.Component {
           }, 900);
 
       const {navigate} = this.props.navigation;
-      navigate('Cooking');
+      console.log("timer"+this.state.timer);
+      navigate('Cooking',{
+        timer: this.state.timer,
+      });
     }
     render() {
         
