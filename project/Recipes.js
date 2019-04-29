@@ -59,21 +59,6 @@ class Recipes extends React.Component {
                 <Text style={styles.recipeText}>Hollandaise</Text>
                 <Image style={styles.arrow} source={Arrow} alt="go-to" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.recipeContainer}>
-                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
-                <Text style={styles.recipeText}>Gravy</Text>
-                <Image style={styles.arrow} source={Arrow} alt="go-to" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.recipeContainer}>
-                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
-                <Text style={styles.recipeText}>Yummy Sauce</Text>
-                <Image style={styles.arrow} source={Arrow} alt="go-to" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.recipeContainer}>
-                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
-                <Text style={styles.recipeText}>Scrambled Eggs</Text>
-                <Image style={styles.arrow} source={Arrow} alt="go-to" />
-              </TouchableOpacity>
             </View>
         );
     }

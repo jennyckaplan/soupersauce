@@ -158,8 +158,8 @@ export default StyleSheet.create({
       fontSize: 100,
     },
     addButton: {
-      width: 35,
-      height: 35,
+      width: 25,
+      height: 25,
       marginLeft: 30,
     },
     recipesContainer: {
@@ -170,12 +170,12 @@ export default StyleSheet.create({
       borderBottomWidth: 0.5,
       borderColor: 'black',
       width: width,
-      height: 75,
+      height: 60,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: '#9B51E0',
+      backgroundColor: '#FF8436',
     },
     addRecipeText: {
       fontSize: 20,
@@ -204,6 +204,7 @@ export default StyleSheet.create({
       fontSize: 20,
       marginRight: 20,
       marginLeft: 50,
+      flex: 1,
       fontFamily: 'Thonburi',
       fontWeight: 'bold',
       color: 'black',

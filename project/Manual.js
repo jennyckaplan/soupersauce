@@ -6,6 +6,14 @@ import thermo from './img/thermo.png';
 import timer from './img/timer.png';
 import Slider from '@react-native-community/slider';
 
+const labels = {
+  0: "Off",
+  1: "Low",
+  2: "Medium",
+  3: "High",
+  4: "Souper",
+};
+
 class Manual extends React.Component {
     constructor(props) {
       super(props);
@@ -28,6 +36,7 @@ class Manual extends React.Component {
             fontFamily: 'Thonburi',
           },
     };
+
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -45,7 +54,7 @@ class Manual extends React.Component {
                   step={1}
                   onValueChange={value => this.setState({whisk: value})}
                 />
-                <Text style={styles.whiskSpeedText}>{this.state.whisk}</Text>
+                <Text style={styles.whiskSpeedText}>{labels[this.state.whisk]}</Text>
                 <View style={styles.temperature} >
                   <Image style={styles.manualIcons} source={thermo} />
                   <Text style={styles.manualText}>Temperature</Text>
@@ -53,13 +62,13 @@ class Manual extends React.Component {
                   <Slider
                     style={{width: 200, height: 40}}
                     minimumValue={0}
-                    maximumValue={7}
+                    maximumValue={3}
                     minimumTrackTintColor={'#9B51E0'}
                     maximumTrackTintColor={'red'}
                     step={1}
                     onValueChange={value => this.setState({temperature: value})}
                   />
-                 <Text style={styles.whiskSpeedText}>{this.state.temperature}</Text>
+                 <Text style={styles.whiskSpeedText}>{labels[this.state.temperature]}</Text>
                 <View style={styles.timer} >
                   <Image style={styles.manualIcons} source={timer} />
                   <Text style={styles.manualText}>Timer</Text>
