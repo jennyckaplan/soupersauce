@@ -6,9 +6,11 @@ import AnimatedEllipsis from 'react-native-animated-ellipsis';
 import BleManager from 'react-native-ble-manager';
 import { stringToBytes } from 'convert-string';
 
+
 class Cooking extends React.Component {
   constructor(props) {
     super(props);
+    var myTimeout;
   }
     
     static navigationOptions = {
@@ -47,7 +49,7 @@ class Cooking extends React.Component {
               });
   
             }, 900);
-  
+        clearTimeout(myTimeout);
         const {navigate} = this.props.navigation;
         navigate('Manual');
       }
@@ -55,9 +57,9 @@ class Cooking extends React.Component {
     const { navigation } = this.props;
     var timer = navigation.getParam('timer');
     const {navigate} = this.props.navigation;
-      setTimeout(() => {
-          navigate('Manual'); 
-      }, timer*60000);
+    myTimeout = setTimeout(() => {
+        navigate('Manual'); 
+    }, timer*60000);
         return (
           <View style={styles.cookingContainer}>
             <Text style={styles.cookingText}>
