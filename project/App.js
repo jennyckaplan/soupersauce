@@ -7,12 +7,13 @@
  */
 
 import React, {Component} from 'react';
-import {Text, Image, TouchableOpacity} from 'react-native';
+import {Text, Image, TouchableOpacity, View} from 'react-native';
 import styles from './Styles.js';
 import MainMenu from './MainMenu.js';
 import Manual from './Manual.js';
 import Cooking from './Cooking.js';
 import Chef from './img/chef.png';
+import Recipes from './Recipes.js';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 type Props = {};
@@ -34,10 +35,12 @@ class App extends Component<Props> {
   render() {
     const {navigate} = this.props.navigation;
     return (
+      <View style={styles.appContainer}>
         <TouchableOpacity style={styles.connect} onPress={()=> {navigate('Main')}}>
           <Text style={styles.connectText}>Start cooking!</Text>
           <Image style={styles.chefIcon} source={Chef} />
         </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -55,6 +58,9 @@ const AppNavigator = createStackNavigator({
   },
   Cooking: {
     screen: Cooking
+  },
+  Recipes: {
+    screen: Recipes
   },
 });
 
