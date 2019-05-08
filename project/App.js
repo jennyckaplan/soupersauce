@@ -10,7 +10,6 @@ import React, {Component} from 'react';
 import {Text, Image, TouchableOpacity, NativeAppEventEmitter,
   NativeEventEmitter,	
   NativeModules,AppState, View} from 'react-native';
-import {Text, Image, TouchableOpacity, View} from 'react-native';
 import styles from './Styles.js';
 import MainMenu from './MainMenu.js';
 import Manual from './Manual.js';
