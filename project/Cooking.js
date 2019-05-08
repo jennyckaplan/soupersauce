@@ -14,7 +14,7 @@ class Cooking extends React.Component {
   }
     
     static navigationOptions = {
-        title: 'Manual',
+        title: '',
         headerStyle: {
             backgroundColor: '#F8F8F8',
             height: 80,

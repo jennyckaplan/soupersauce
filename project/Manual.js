@@ -8,6 +8,14 @@ import Slider from '@react-native-community/slider';
 import BleManager from 'react-native-ble-manager';
 import { stringToBytes } from 'convert-string';
 
+const labels = {
+  0: "Off",
+  1: "Low",
+  2: "Medium",
+  3: "High",
+  4: "Souper",
+};
+
 class Manual extends React.Component {
     constructor(props) {
       super(props);
@@ -30,6 +38,7 @@ class Manual extends React.Component {
             fontFamily: 'Thonburi',
           },
     };
+
     sendInfo(){
     
     var id = '070FC77C-181A-4F7D-8A81-04DB71C6541B'
@@ -66,6 +75,7 @@ class Manual extends React.Component {
         timer: this.state.timer,
       });
     }
+
     render() {
         
         return (
@@ -78,12 +88,12 @@ class Manual extends React.Component {
                   style={{width: 200, height: 40}}
                   minimumValue={0}
                   maximumValue={4}
-                  minimumTrackTintColor={'blue'}
+                  minimumTrackTintColor={'#9B51E0'}
                   maximumTrackTintColor={'red'}
                   step={1}
                   onValueChange={value => this.setState({whisk: value})}
                 />
-                <Text style={styles.whiskSpeedText}>{this.state.whisk}</Text>
+                <Text style={styles.whiskSpeedText}>{labels[this.state.whisk]}</Text>
                 <View style={styles.temperature} >
                   <Image style={styles.manualIcons} source={thermo} />
                   <Text style={styles.manualText}>Temperature</Text>
@@ -91,13 +101,13 @@ class Manual extends React.Component {
                   <Slider
                     style={{width: 200, height: 40}}
                     minimumValue={0}
-                    maximumValue={7}
-                    minimumTrackTintColor={'blue'}
+                    maximumValue={3}
+                    minimumTrackTintColor={'#9B51E0'}
                     maximumTrackTintColor={'red'}
                     step={1}
                     onValueChange={value => this.setState({temperature: value})}
                   />
-                 <Text style={styles.whiskSpeedText}>{this.state.temperature}</Text>
+                 <Text style={styles.whiskSpeedText}>{labels[this.state.temperature]}</Text>
                 <View style={styles.timer} >
                   <Image style={styles.manualIcons} source={timer} />
                   <Text style={styles.manualText}>Timer</Text>
@@ -105,8 +115,8 @@ class Manual extends React.Component {
                 <Slider
                     style={{width: 200, height: 40}}
                     minimumValue={0.5}
-                    maximumValue={5}
-                    minimumTrackTintColor={'blue'}
+                    maximumValue={20}
+                    minimumTrackTintColor={'#9B51E0'}
                     maximumTrackTintColor={'red'}
                     step={0.5}
                     onValueChange={value => this.setState({timer: value})}

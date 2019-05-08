@@ -9,12 +9,13 @@
 import React, {Component} from 'react';
 import {Text, Image, TouchableOpacity, NativeAppEventEmitter,
   NativeEventEmitter,
-  NativeModules,AppState,} from 'react-native';
+  NativeModules,AppState, View} from 'react-native';
 import styles from './Styles.js';
 import MainMenu from './MainMenu.js';
 import Manual from './Manual.js';
 import Cooking from './Cooking.js';
 import Chef from './img/chef.png';
+import Recipes from './Recipes.js';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import BleManager from 'react-native-ble-manager';
 import { stringToBytes } from 'convert-string';
@@ -132,12 +133,12 @@ class App extends Component<Props> {
 
   render() {
     return (
+       <View style={styles.appContainer}>
         <TouchableOpacity style={styles.connect} onPress={()=> this.startScan()}>
             <Text style={styles.connectText}>Start cooking!</Text>
             <Image style={styles.chefIcon} source={Chef} />
         </TouchableOpacity>
-    
-
+       </View>
     );
   }
 }
@@ -154,6 +155,9 @@ const AppNavigator = createStackNavigator({
   },
   Cooking: {
     screen: Cooking
+  },
+  Recipes: {
+    screen: Recipes
   },
 });
 

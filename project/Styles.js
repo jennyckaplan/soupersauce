@@ -5,10 +5,14 @@ let {height, width} = Dimensions.get('window');
 height = height - 80;
 
 export default StyleSheet.create({
+    appContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
     connect: {
       width: 300,
       height: 280,
-      marginLeft: 50,
       marginTop: 150,
       backgroundColor: '#6F95CF',
       borderRadius: 15,
@@ -128,6 +132,7 @@ export default StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 20,
+      marginBottom: 10,
     },
     startText: {
       color: 'white',
@@ -159,7 +164,64 @@ export default StyleSheet.create({
       paddingTop: 60,
     },
     ellipsis: {
-      color: 'blue',
+      color: '#9B51E0',
       fontSize: 100,
-    }
+    },
+    addButton: {
+      width: 25,
+      height: 25,
+      marginLeft: 30,
+    },
+    recipesContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    addContainer: {
+      borderBottomWidth: 0.5,
+      borderColor: 'black',
+      width: width,
+      height: 60,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: '#FF8436',
+    },
+    addRecipeText: {
+      fontSize: 20,
+      marginRight: 20,
+      marginLeft: 60,
+      fontFamily: 'Thonburi',
+      fontWeight: 'bold',
+      color: 'white',
+    },
+    recipeIcon: {
+      width: 54,
+      height: 54,
+      marginLeft: 20,
+    },
+    recipeContainer: {
+      borderBottomWidth: 0.5,
+      borderColor: 'black',
+      width: width,
+      height: 75,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    recipeText: {
+      fontSize: 20,
+      marginRight: 20,
+      marginLeft: 50,
+      flex: 1,
+      fontFamily: 'Thonburi',
+      fontWeight: 'bold',
+      color: 'black',
+    },
+    arrow: {
+      width: 8,
+      height: 16,
+      marginRight: 20,
+    },
   });
