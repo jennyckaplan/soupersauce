@@ -6,6 +6,8 @@ import ButtonImage from './img/Button.png';
 import RecipeIcon from './img/Recipe.png';
 import Arrow from './img/Arrow.png';
 
+let recipesList2 = [];
+
 class Recipes extends React.Component {
     constructor(props) {
       super(props);
@@ -26,7 +28,7 @@ class Recipes extends React.Component {
             const recipesList = [];
             for (let i = 0; i < len; i++) {
               let row = res.rows.item(i);
-              recipesList.push(row.title);
+              recipesList2.push(row.title);
             }
             this.setState({
               recipes: recipesList,
@@ -52,7 +54,7 @@ class Recipes extends React.Component {
     };
     render() {
         const {navigate} = this.props.navigation;
-        console.log(this.state.recipes);
+        //console.log(recipesList2);
         return (
             <View style={styles.recipesContainer}>
               <TouchableOpacity style={styles.addContainer}>
