@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import { blockStatement } from '@babel/types';
 
 let {height, width} = Dimensions.get('window');
 height = height - 80;
@@ -213,5 +214,14 @@ export default StyleSheet.create({
       width: 8,
       height: 16,
       marginRight: 20,
+    },
+    stopButton: {	
+      backgroundColor: '#9B51E0',	
+      height: 60,	
+      width: 160,	
+      borderRadius: 40,	
+      justifyContent: 'center',	
+      alignItems: 'center',	
+      marginTop: 180,	
     },
   });
