@@ -14,6 +14,7 @@ import Manual from './Manual.js';
 import Cooking from './Cooking.js';
 import Chef from './img/chef.png';
 import Recipes from './Recipes.js';
+import CreateRecipe from './CreateRecipe.js';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 type Props = {};
@@ -60,6 +61,9 @@ const AppNavigator = createStackNavigator({
   },
   Recipes: {
     screen: Recipes
+  },
+  CreateRecipe: {
+    screen: CreateRecipe
   },
 });
 

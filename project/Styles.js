@@ -214,4 +214,71 @@ export default StyleSheet.create({
       height: 16,
       marginRight: 20,
     },
+    whiskSpeedCreate: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      height: 50,
+      borderRadius: 10,
+      width: 200,
+    },
+  
+    temperatureCreate: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      height: 50,
+      width: 200,
+      borderRadius: 10,
+      marginTop: 5,
+    },
+    timerCreate: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      height: 50,
+      width: 200,
+      borderRadius: 10,
+      marginTop: 5,
+    },
+    createText: {
+      color: 'black',
+      fontFamily: 'Thonburi',
+      fontSize: 12,
+    },
+    stepCreate: {
+      display: 'flex',
+      flexDirection: 'row',      
+      height: 25,
+      width: 200,
+      borderRadius: 10,
+      marginTop: 5,
+      textAlign: 'left',
+    },
+    stepText: {
+      color: 'black',
+      fontFamily: 'Thonburi',
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'left',
+    },
+    row: {
+      flex: 1,
+      flexDirection: "row"
+    },
+    inputWrap: {
+      flex: 1,
+      borderColor: "#cccccc",
+      borderBottomWidth: 1,
+      marginBottom: 10
+    },
+    createContainer: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'flex-start',
+      paddingTop: 0,
+    },
   });

@@ -55,7 +55,7 @@ class Recipes extends React.Component {
         console.log(this.state.recipes);
         return (
             <View style={styles.recipesContainer}>
-              <TouchableOpacity style={styles.addContainer}>
+              <TouchableOpacity style={styles.addContainer} onPress={()=> {navigate('CreateRecipe')}}>
                 <Image style={styles.addButton} source={ButtonImage} alt="add" />
                 <Text style={styles.addRecipeText}>Create New Recipe</Text>
               </TouchableOpacity>
