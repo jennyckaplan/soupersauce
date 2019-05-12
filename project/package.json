@@ -8,11 +8,9 @@
   },
   "dependencies": {
     "@react-native-community/slider": "^1.0.4",
-    "convert-string": "^0.1.0",
     "react": "16.8.3",
     "react-native": "0.59.1",
     "react-native-animated-ellipsis": "^2.0.0",
-    "react-native-ble-manager": "^6.6.4",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-sqlite-storage": "^3.3.10",
     "react-navigation": "^3.8.1"
