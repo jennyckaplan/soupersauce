@@ -51,14 +51,53 @@ class MainMenu extends React.Component {
         db.transaction(function(txn) {
             txn.executeSql("CREATE TABLE IF NOT EXISTS steps( " +
               "step_id INTEGER PRIMARY KEY NOT NULL, " +
-              "recipe TEXT, title TEXT, step INTEGER, whisk INTEGER, "+
-              +"temperature INTEGER, time INTEGER" +
+              "recipe TEXT, title TEXT, step INTEGER, whisk INTEGER, temperature INTEGER, time REAL" +
               ");", [], (tx, results) => {
                   //console.log('created steps table');
               });
         });
         db.transaction(function(txn) {
             txn.executeSql("INSERT into recipes(title) VALUES(?)", ['Hollandaise Sauce'], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into ingredients(recipe, title, amount, step) VALUES(?,?,?,?)", ['Hollandaise Sauce', 'egg yolks', '4', 1], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into ingredients(recipe, title, amount, step) VALUES(?,?,?,?)", ['Hollandaise Sauce', 'lemon juice', '1 tablespoon', 1], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into ingredients(recipe, title, amount, step) VALUES(?,?,?,?)", ['Hollandaise Sauce', 'salt', '1 pinch', 1], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into ingredients(recipe, title, amount, step) VALUES(?,?,?,?)", ['Hollandaise Sauce', 'cayenne pepper', '1 pinch', 1], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into ingredients(recipe, title, amount, step) VALUES(?,?,?,?)", ['Hollandaise Sauce', 'butter', '1/2 cup', 2], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into steps(recipe, title, step, whisk, temperature, time) VALUES(?,?,?,?,?,?)", ['Hollandaise Sauce', 'Whisk the eggs!', 1, 4, 1, 5.0], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into steps(recipe, title, step, whisk, temperature, time) VALUES(?,?,?,?,?,?)", ['Hollandaise Sauce', 'Add the butter slowly', 2, 4, 1, 2.5], (tx, results) => {
+                //console.log('inserted hollandaise recipe');
+            });
+        });
+        db.transaction(function(txn) {
+            txn.executeSql("INSERT into steps(recipe, title, step, whisk, temperature, time) VALUES(?,?,?,?,?,?)", ['Hollandaise Sauce', 'Cook!', 3, 3, 2, 6.0], (tx, results) => {
                 //console.log('inserted hollandaise recipe');
             });
         });

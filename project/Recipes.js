@@ -6,8 +6,6 @@ import ButtonImage from './img/Button.png';
 import RecipeIcon from './img/Recipe.png';
 import Arrow from './img/Arrow.png';
 
-let recipesList2 = [];
-
 class Recipes extends React.Component {
     constructor(props) {
       super(props);
@@ -18,24 +16,20 @@ class Recipes extends React.Component {
     componentDidMount() {
       const db = SQLite.openDatabase({ name: 'recipes.db' });
 
-      db.transaction(function(txn) {
-        txn.executeSql(
-          "SELECT * FROM recipes;"
-          ,
-          [],
-          function(tx, res) {
-            var len = res.rows.length;
-            const recipesList = [];
-            for (let i = 0; i < len; i++) {
-              let row = res.rows.item(i);
-              recipesList2.push(row.title);
-            }
-            this.setState({
-              recipes: recipesList,
+      db.transaction(tx => {
+        tx.executeSql('SELECT * FROM recipes;', [], (tx, results) => {
+          const rows = results.rows;
+          console.log(rows);
+          let recipes = [];
+  
+          for (let i = 0; i < rows.length; i++) {
+            recipes.push({
+              ...rows.item(i),
             });
-            console.log('connected to database');
           }
-        );
+  
+          this.setState({ recipes });
+        });
       });
     }
 
@@ -54,28 +48,24 @@ class Recipes extends React.Component {
     };
     render() {
         const {navigate} = this.props.navigation;
-        //console.log(recipesList2);
+        const {recipes} = this.state;
         return (
             <View style={styles.recipesContainer}>
-              <TouchableOpacity style={styles.addContainer}>
+              <TouchableOpacity style={styles.addContainer} onPress={()=> {navigate('CreateRecipe')}}>
                 <Image style={styles.addButton} source={ButtonImage} alt="add" />
                 <Text style={styles.addRecipeText}>Create New Recipe</Text>
               </TouchableOpacity>
-              {/*recipes.map((recipe) => {
+              {recipes.map((recipe,index) => {
                 return (
-                  <TouchableOpacity style={styles.recipeContainer}>
-                  <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
-                  <Text style={styles.recipeText}>{recipe}</Text>
-                  <Image style={styles.arrow} source={Arrow} alt="go-to" />
+                  <TouchableOpacity key={index} style={styles.recipeContainer} onPress={() => {navigate('ViewRecipe', {
+                    title: recipe.title,
+                  })}}>
+                    <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
+                    <Text style={styles.recipeText}>{recipe.title}</Text>
+                    <Image style={styles.arrow} source={Arrow} alt="go-to" />
                 </TouchableOpacity>
                 )
-              })*/}
-
-             {/*} <TouchableOpacity style={styles.recipeContainer}>
-                <Image style={styles.recipeIcon} source={RecipeIcon} alt="recipe" />
-                <Text style={styles.recipeText}>Hollandaise</Text>
-                <Image style={styles.arrow} source={Arrow} alt="go-to" />
-            </TouchableOpacity> */}
+              })}
             </View>
         );
     }
